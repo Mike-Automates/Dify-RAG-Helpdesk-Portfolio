@@ -1,0 +1,77 @@
+Script Outline: Building a RAG-Powered IT Assistant with Dify
+Part 1: The Introduction (The "Why")
+Hook: Start with a common pain point. "Tired of answering the same IT questions over and over? What if an AI could handle those repetitive queries for you, accurately and reliably?"
+
+Introduce the Project: "Welcome to my 'Foundational IT Helpdesk Assistant' project. This is a simple, yet powerful, demo to show how you can build an AI assistant that uses your own private knowledge base for a company called 'IT Solutions Pro.'"
+
+Explain the Problem with Regular Chatbots: "The problem with a standard large language model is that it doesn't have your company's specific information. It's great at general questions, but if you ask it about 'IT Solutions Pro's' VPN or password reset policy, it will either guess or tell you it can't help. This is where RAG comes in."
+
+Part 2: The Core Concept (The "How")
+Define RAG: "RAG stands for Retrieval-Augmented Generation. Think of it like a smart librarian. When a user asks a question, the RAG system first retrieves the most relevant documents from your library—your knowledge base. It then augments the user's query with that information and gives it to a large language model to generate a final, accurate response."
+
+Introduce the Documents: "The 'library' for this project is our IT Helpdesk knowledge base. I've created three documents for a fictional company, IT Solutions Pro: an FAQ, a Wi-Fi troubleshooting guide, and a printer setup guide. They are all saved as clean Markdown files to ensure Dify can process them easily."
+
+Highlight the "Needles in the Haystack": "I've intentionally included specific, technical issues in these documents, like a static IP address problem and a firewall block. These are the perfect test cases to prove RAG's value, because a simple chatbot would never be able to answer them correctly."
+
+Part 3: The Technical Walkthrough (The "Show Me")
+(Screen Recording begins here)
+
+Step 1: Setting up the Knowledge Base:
+
+"First, we go into Dify and create our knowledge base."
+
+"I'll upload the three Markdown (.md) files we created. We'll use the default settings for chunking and indexing, as these work perfectly for well-structured documents."
+
+Explain Chunking: "Dify automatically 'chunks' our documents, breaking them into smaller, searchable pieces. Since our documents use headings, Dify can intelligently split them, which is a great starting point for any knowledge base."
+
+"This process creates a vector embedding for each chunk, which allows the system to perform a fast and accurate 'semantic' search based on the meaning of our text."
+
+Step 2: Configuring the Chatflow App:
+
+"Next, we'll create a new application by selecting 'Chatflow' from a blank template."
+
+"I'll give it a name: IT Solutions Pro Helpdesk Assistant."
+
+"In the visual editor, we need to add a crucial step. I'll click the + button between the START and LLM nodes and select the Knowledge Retrieval node."
+
+Step 3: Connecting the Knowledge Base:
+
+"Now, I'll click on the Knowledge Retrieval node and connect our IT Solutions Pro - Core Knowledge base to the flow. This tells the system where to look for answers."
+
+"For the Retrieval Settings, we're keeping it simple for this foundational demo. We're using a standard Vector Search with a Top K of 3 and a Score Threshold of 0.5. We'll save the more advanced features, like a rerank model, for a future project to show how we can make our chatbot even more precise."
+
+Step 4: Prompt Engineering:
+
+"This is a crucial step. I'll click on the LLM node and go to the SYSTEM prompt. This is where we give the chatbot its identity and instructions."
+
+"First, I'll link the knowledge base's results by clicking on the CONTEXT box and selecting the result variable under KNOWLEDGE RETRIEVAL. Then, in the SYSTEM prompt, I'll insert that context using the variable I select from the popup list when I type {."
+
+"Our prompt tells the model to 'act as a friendly IT Helpdesk Assistant,' and importantly, to 'only use the knowledge provided in the following context.' This is how we prevent the chatbot from making up answers."
+
+Part 4: The Live Demo (The "Proof")
+(Show the Dify debug/preview screen)
+
+Test 1: A simple FAQ.
+
+Query: "How do I request a new mouse or keyboard?"
+
+Your Narrative: "This first test shows that our RAG system can easily handle simple, common questions by finding the direct answer in our FAQ document."
+
+Test 2: The "Aha!" Moment Query.
+
+Query: "I'm having trouble with my Wi-Fi at home. My laptop isn't connecting and I have a static IP address for a personal server. What should I do?"
+
+Your Narrative: "This is the core of our RAG demo. A normal LLM would not have this specific solution. But our system retrieves the exact section of our Wi-Fi troubleshooting guide that has the answer. Dify shows us the source of the information, proving the answer isn't a guess—it's based on our documents."
+
+Test 3: The Out-of-Scope Query (Validation).
+
+Query: "What is the company's dress code policy?"
+
+Your Narrative: "This final test is crucial for validation. It shows that our prompt engineering is working correctly. The chatbot won't hallucinate or make up an answer. If the information isn't in our knowledge base, it won't pretend that it is, which makes it a safe and reliable tool for a business environment."
+
+Part 5: The Conclusion (The "What's Next")
+Summarize the Success: "We've built a foundational RAG system that is accurate, reliable, and grounded in our own data."
+
+Tease the Future Projects: "While this system is powerful, there's always room for improvement. In my next project, I'll show you how to take a 'dirty' PDF document and clean it up for a RAG system. I'll also show you how to solve the problem of less-than-perfect retrieval by adding a rerank model to our pipeline, which will make our answers even more precise."
+
+Call to Action: "If you found this helpful, be sure to subscribe, and check out the full blog post for a step-by-step guide and all the code. See you next time!"
